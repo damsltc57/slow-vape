@@ -8,6 +8,25 @@ struct Preferences: Codable, Equatable {
     var sensitivity = 0.45
     var startCameraAtLaunch = false
     var gentleNotifications = false
+    var puffNotifications = false
+
+    private enum CodingKeys: String, CodingKey {
+        case hourlyLimit, dailyLimit, volume, sensitivity, startCameraAtLaunch
+        case gentleNotifications, puffNotifications
+    }
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        hourlyLimit = try values.decodeIfPresent(Int.self, forKey: .hourlyLimit)
+        dailyLimit = try values.decodeIfPresent(Int.self, forKey: .dailyLimit)
+        volume = try values.decode(Double.self, forKey: .volume)
+        sensitivity = try values.decode(Double.self, forKey: .sensitivity)
+        startCameraAtLaunch = try values.decode(Bool.self, forKey: .startCameraAtLaunch)
+        gentleNotifications = try values.decode(Bool.self, forKey: .gentleNotifications)
+        puffNotifications = try values.decodeIfPresent(Bool.self, forKey: .puffNotifications) ?? false
+    }
 
     subscript(limit: UsageLimit) -> Int? {
         limit == .hour ? hourlyLimit : dailyLimit

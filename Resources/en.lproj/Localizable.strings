@@ -67,6 +67,8 @@
 "notifications.body" = "%1$@ of %2$@ puffs · %3$@";
 "notifications.denied" = "Notifications are disabled in System Settings.";
 "notifications.error" = "Could not enable macOS notifications.";
+"notifications.puff" = "Puff counted";
+"notifications.puffToday" = "%@ today";
 "notifications.warning" = "You’re approaching your limit";
 "puffs.one" = "%@ puff";
 "puffs.other" = "%@ puffs";
@@ -80,6 +82,7 @@
 "settings.loginSystem" = "Open Login Items settings";
 "settings.play" = "Play sound";
 "settings.previewAlert" = "Preview alert";
+"settings.puffNotifications" = "Send a silent notification for each puff";
 "settings.reminder" = "The limit alert stays open until you dismiss it. Another puff can reopen it after 15 minutes.";
 "settings.save" = "Save limits";
 "settings.sensitivity" = "Detection sensitivity";

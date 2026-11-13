@@ -166,24 +166,23 @@ final class AppModel {
         refreshAlerts(onDetection: false)
     }
 
-    func setGentleNotifications(_ enabled: Bool) async -> Bool {
+    func setNotification(_ setting: WritableKeyPath<Preferences, Bool>, enabled: Bool) async {
         notificationsError = nil
         if enabled {
             do {
                 let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert])
                 guard granted else {
                     notificationsError = L10n.text("notifications.denied")
-                    return false
+                    return
                 }
             } catch {
                 notificationsError = L10n.text("notifications.error")
-                return false
+                return
             }
         }
         var next = preferences
-        next.gentleNotifications = enabled
+        next[keyPath: setting] = enabled
         savePreferences(next)
-        return preferences.gentleNotifications == enabled
     }
 
     private var threshold: Float { Float(0.65 - preferences.sensitivity * 0.55) }
@@ -263,6 +262,13 @@ final class AppModel {
         if !announcement.isEmpty { presentAlert?(exceeded) }
 
         let snapshot = usage
+        if onDetection, preferences.puffNotifications {
+            let content = UNMutableNotificationContent()
+            content.title = L10n.text("notifications.puff")
+            content.body = L10n.format("notifications.puffToday", L10n.puffs(snapshot.day))
+            let request = UNNotificationRequest(identifier: "slow-vape-puff", content: content, trigger: nil)
+            UNUserNotificationCenter.current().add(request)
+        }
         let close = Set(UsageLimit.allCases.filter { limit in
             guard let target = preferences[limit] else { return false }
             return snapshot[limit] < target && Double(snapshot[limit]) >= Double(target) * 0.8

@@ -55,7 +55,7 @@ Open the dashboard from the menu bar to see today's counts by hour, the last 14 
 
 ## Alerts
 
-Open **Settings → Alerts** to adjust the volume, play the sound, preview the window, or enable the optional 80% notification.
+Open **Settings → Alerts** to adjust the volume, play the sound, preview the window, or enable the optional 80% notification. Turn on **Send a silent notification for each puff** for a macOS banner with today's count after each recorded puff.
 
 ![English foreground limit alert with the reached threshold and a dismiss button](docs/screenshots/limit-alert.png)
 

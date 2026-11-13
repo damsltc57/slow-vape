@@ -55,17 +55,10 @@ struct SettingsView: View {
                 Text(L10n.text("settings.reminder"))
                     .font(.callout)
                     .foregroundStyle(Ink.muted)
-                Toggle(L10n.text("settings.warning"), isOn: Binding(
-                    get: { model.preferences.gentleNotifications },
-                    set: { enabled in
-                        requestingNotifications = true
-                        Task {
-                            _ = await model.setGentleNotifications(enabled)
-                            requestingNotifications = false
-                        }
-                    }
-                ))
-                .disabled(requestingNotifications)
+                Toggle(L10n.text("settings.warning"), isOn: notificationBinding(\.gentleNotifications))
+                    .disabled(requestingNotifications)
+                Toggle(L10n.text("settings.puffNotifications"), isOn: notificationBinding(\.puffNotifications))
+                    .disabled(requestingNotifications)
                 if let error = model.notificationsError {
                     Text(error).font(.callout).foregroundStyle(Ink.amber)
                 }
@@ -102,6 +95,19 @@ struct SettingsView: View {
     }
 
     private var valid: Bool { LimitsForm.isValid(hourly) && LimitsForm.isValid(daily) }
+
+    private func notificationBinding(_ setting: WritableKeyPath<Preferences, Bool>) -> Binding<Bool> {
+        Binding(
+            get: { model.preferences[keyPath: setting] },
+            set: { enabled in
+                requestingNotifications = true
+                Task {
+                    await model.setNotification(setting, enabled: enabled)
+                    requestingNotifications = false
+                }
+            }
+        )
+    }
 
     private func edit(_ change: (inout Preferences) -> Void) {
         var settings = model.preferences

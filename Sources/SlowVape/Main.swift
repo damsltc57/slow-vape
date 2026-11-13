@@ -2,6 +2,7 @@ import AppKit
 import AVFoundation
 import SlowVapeCore
 import SwiftUI
+import UserNotifications
 
 @main
 enum SlowVapeApp {
@@ -15,7 +16,7 @@ enum SlowVapeApp {
 }
 
 @MainActor
-final class AppController: NSObject, NSApplicationDelegate {
+final class AppController: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     private var model: AppModel?
     private var window: NSWindow?
     private var alert: NSPanel?
@@ -26,6 +27,7 @@ final class AppController: NSObject, NSApplicationDelegate {
     private var alertIsDemo = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        UNUserNotificationCenter.current().delegate = self
         let base = URL.applicationSupportDirectory.appending(path: "Slow Vape", directoryHint: .isDirectory)
         let model = AppModel(dataURL: base.appending(path: "history.json"))
         self.model = model
@@ -49,6 +51,14 @@ final class AppController: NSObject, NSApplicationDelegate {
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
         showWindow()
         return true
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping @Sendable (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .list])
     }
 
     func applicationWillTerminate(_ notification: Notification) {

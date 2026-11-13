@@ -67,6 +67,8 @@
 "notifications.body" = "%1$@ sur %2$@ bouffées · %3$@";
 "notifications.denied" = "Les notifications sont désactivées dans Réglages Système.";
 "notifications.error" = "Impossible d’activer les notifications macOS.";
+"notifications.puff" = "Bouffée comptée";
+"notifications.puffToday" = "%@ aujourd’hui";
 "notifications.warning" = "Tu approches de ta limite";
 "puffs.one" = "%@ bouffée";
 "puffs.other" = "%@ bouffées";
@@ -80,6 +82,7 @@
 "settings.loginSystem" = "Ouvrir les réglages des éléments de connexion";
 "settings.play" = "Écouter";
 "settings.previewAlert" = "Tester la fenêtre";
+"settings.puffNotifications" = "Recevoir une notification silencieuse à chaque bouffée";
 "settings.reminder" = "Au seuil, la fenêtre reste ouverte jusqu’à ce que tu la fermes. Une nouvelle bouffée peut la rouvrir après 15 minutes.";
 "settings.save" = "Enregistrer les limites";
 "settings.sensitivity" = "Sensibilité du détecteur";
