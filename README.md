@@ -1,10 +1,10 @@
 # Slow Vape
 
-Slow Vape is a native macOS app that uses your webcam to count likely vaping gestures and alerts you when you reach a limit you set. Detection, settings, and history all run locally on your Mac.
+Slow Vape helps you vape less at your desk. The macOS app uses your webcam to count vaping gestures and alerts you when you reach a limit you set. Detection, settings, and history all run locally on your Mac.
 
-![Slow Vape dashboard in English, showing example puff counts and hourly history](docs/screenshots/dashboard.png)
+![Vape less at your desk. Two webcam views show the vape detected at the lips and the counter adding one puff as the vape moves away.](docs/images/webcam-puff-detection.jpg)
 
-*The screenshots use sample data.*
+*Illustration of how webcam detection counts a puff.*
 
 ## What it does
 
@@ -44,6 +44,14 @@ swift test
 If camera access is denied, enable Slow Vape in **System Settings → Privacy & Security → Camera**. **Settings → Camera and startup** includes a live preview, detection sensitivity, and separate options to open Slow Vape at login and start tracking when it opens.
 
 ![English welcome screen with the setup steps and local privacy explanation](docs/screenshots/welcome.png)
+
+## History
+
+Open the dashboard from the menu bar to see today's counts by hour, the last 14 days by day, or the last eight weeks by week.
+
+![Slow Vape dashboard in English, showing example puff counts and hourly history](docs/screenshots/dashboard.png)
+
+*Dashboard shown with sample data.*
 
 ## Alerts
 
